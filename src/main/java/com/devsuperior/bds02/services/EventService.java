@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.devsuperior.bds02.dto.EventDTO;
+import com.devsuperior.bds02.entities.City;
 import com.devsuperior.bds02.entities.Event;
 import com.devsuperior.bds02.repositories.EventRepository;
 import com.devsuperior.bds02.services.exception.ResourceNotFoundException;
@@ -33,7 +34,7 @@ public class EventService {
 		try {
 			Event entity = repository.getOne(id);
 			copyDTOtoEntity(dto, entity);
-			dto.getCityId();
+			entity.setCity(new City(dto.getCityId(),null));
 			entity = repository.save(entity);
 			return new EventDTO(entity);	
 		}
@@ -46,6 +47,7 @@ public class EventService {
 		entity.setName(dto.getName());
 		entity.setDate(dto.getDate());
 		entity.setUrl(dto.getUrl());
+		
 		
 		
 		
